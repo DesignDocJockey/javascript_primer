@@ -1,0 +1,2089 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.10/lodash.core.js" ></script>
+<!-- <script scr="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.9.1/underscore-min.js"></script> -->
+<script src="https://momentjs.com/downloads/moment.min.js" ></script>
+
+<script>
+
+   _ = _.noConflict();
+
+  const GetAllTimePeriods = (dataRetrievalStartDate, dataRetrievalEndDate) => {
+        const timePeriods = [];
+        const dateEnd = dataRetrievalEndDate;
+        const dateStart = dataRetrievalStartDate;
+        //const yearsToGetData = [dateStart.year().toString(), dateEnd.year().toString()];
+
+        while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+            const d = dateStart.format('YYYY-MM-01');
+            const t = d + 'T00:00:00.000Z';
+            timePeriods.push(t);
+            dateStart.add(1, 'month');
+        }
+        // console.log(`Years to Get Data For: ${yearsToGetData} for Time Period: ${timePeriods}`);
+        // console.log(`Past 12-Month TimePeriod: ${JSON.stringify(past12MonthsFromTimePeriod, undefined, 1)}`);
+        
+        return timePeriods;    
+};
+
+const GetEveryMonthForYear = (year) => {
+    const periods = [];
+    const start = new Date("1/1/" + year);
+    const end = new Date("12/31/" + year);
+
+    const dateStart = moment(start.valueOf()).startOf('month');
+    const dateEnd = moment(end.valueOf()).startOf('month');
+
+    while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+            periods.push(dateStart.format('YYYY-MM-01'));
+            dateStart.add(1, 'month');
+        }
+    return periods;
+  };
+
+  const GetPrior12MonthsForAGivenPeriod = (timePeriod) => {
+        const past12MonthsFromTimePeriod = [];
+        const dateEnd = moment(timePeriod, 'YYYY-MM-01').utc().startOf('month');
+        const dateStart = moment(timePeriod, 'YYYY-MM-01').utc().subtract(11, 'month').startOf('month');
+        const yearsToGetData = [dateStart.year().toString(), dateEnd.year().toString()];
+
+        while (dateEnd > dateStart || dateStart.format('M') === dateEnd.format('M')) {
+            past12MonthsFromTimePeriod.push(dateStart.format('YYYY-MM-01'));
+            dateStart.add(1, 'month');
+        }
+
+        console.log(`Years to Get Data For: ${yearsToGetData} for Time Period: ${timePeriod}`);
+        //console.log(`Past 12-Month TimePeriod: ${JSON.stringify(past12MonthsFromTimePeriod, undefined, 1)}`);
+
+        return {
+            yearsToGetData,
+            past12MonthsFromTimePeriod
+        };
+    }
+
+  const a = GetEveryMonthForYear(2007);
+  console.log(`GetEveryMonthForYear .... ${JSON.stringify(a)}`);
+
+  const chartStartingPeriod = moment().utc().add(-10, 'year').startOf('month');    
+  console.log(`chartStartingPeriod: ${chartStartingPeriod}`);
+
+  const chartEndingPoint = moment().utc().add(-1, 'month').startOf('month');  
+  console.log(`chartSendingPoint: ${chartEndingPoint}`);
+
+  const dataRetrievalStartDate = moment().utc().add(-11, 'year').add(1, 'month').startOf('month');//.format('YYYY-MM-01');
+  console.log(`dataRetrievalStartDate: ${dataRetrievalStartDate}`);
+  const dataRetrievalEndDate = moment().utc().add(-1, 'month').startOf('month'); //.format('YYYY-MM-01'); 
+  console.log(`dataRetrievalEndDate: ${dataRetrievalEndDate}`);
+
+  const data =  
+  [{
+  "DC MD burbs": [
+   {
+    "key_as_string": "2010-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 5791234.8238
+    }
+   },
+   {
+    "key_as_string": "2010-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 16073627
+    }
+   },
+   {
+    "key_as_string": "2010-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 23500000
+    }
+   },
+   {
+    "key_as_string": "2011-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 91767768.9732
+    }
+   },
+   {
+    "key_as_string": "2011-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 168887520.4653
+    }
+   },
+   {
+    "key_as_string": "2011-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 52507394
+    }
+   },
+   {
+    "key_as_string": "2012-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 16684592
+    }
+   },
+   {
+    "key_as_string": "2012-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 10760000
+    }
+   },
+   {
+    "key_as_string": "2013-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 10500000
+    }
+   },
+   {
+    "key_as_string": "2014-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 192280000
+    }
+   },
+   {
+    "key_as_string": "2015-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 8190000
+    }
+   },
+   {
+    "key_as_string": "2015-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 54263268.4429
+    }
+   },
+   {
+    "key_as_string": "2016-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 50000000
+    }
+   },
+   {
+    "key_as_string": "2016-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 93748285
+    }
+   },
+   {
+    "key_as_string": "2016-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 11683260
+    }
+   },
+   {
+    "key_as_string": "2017-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 12093791.6415
+    }
+   },
+   {
+    "key_as_string": "2017-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 39303615
+    }
+   },
+   {
+    "key_as_string": "2018-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 13130000
+    }
+   },
+   {
+    "key_as_string": "2018-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 85463491.97620001
+    }
+   }
+  ]
+ },
+ {
+  "DC VA burbs": [
+   {
+    "key_as_string": "2008-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 13350000
+    }
+   },
+   {
+    "key_as_string": "2008-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2008-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2008-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2009-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 61134499.3303
+    }
+   },
+   {
+    "key_as_string": "2011-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 78676147.88749999
+    }
+   },
+   {
+    "key_as_string": "2011-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 20436770
+    }
+   },
+   {
+    "key_as_string": "2012-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 17109542
+    }
+   },
+   {
+    "key_as_string": "2013-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 15865222.1637
+    }
+   },
+   {
+    "key_as_string": "2014-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 8738594
+    }
+   },
+   {
+    "key_as_string": "2016-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 9200000
+    }
+   },
+   {
+    "key_as_string": "2016-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 73029867.3265
+    }
+   },
+   {
+    "key_as_string": "2017-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 41959323.9486
+    }
+   },
+   {
+    "key_as_string": "2017-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 12075687.4513
+    }
+   },
+   {
+    "key_as_string": "2017-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 13100000
+    }
+   },
+   {
+    "key_as_string": "2018-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 19090829.6249
+    }
+   }
+  ]
+ },
+ {
+  "DC": [
+   {
+    "key_as_string": "2010-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 10813599.3333
+    }
+   },
+   {
+    "key_as_string": "2010-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2010-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2011-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2012-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2013-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 47000000
+    }
+   },
+   {
+    "key_as_string": "2014-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2014-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 7900000
+    }
+   },
+   {
+    "key_as_string": "2015-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 40000000
+    }
+   },
+   {
+    "key_as_string": "2015-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2015-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2016-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 30000000
+    }
+   },
+   {
+    "key_as_string": "2017-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-02-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-03-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-04-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-05-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-06-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-07-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-08-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-09-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-10-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-11-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2017-12-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 0
+    }
+   },
+   {
+    "key_as_string": "2018-01-01T00:00:00.000Z",
+    "total_volume": {
+     "value": 26965000
+    }
+   }
+  ]
+ }];
+
+  
+  const allDataPoints = [];
+  const countries = [];
+  
+  const dataTimePeriods = GetAllTimePeriods(dataRetrievalStartDate, dataRetrievalEndDate);
+  //console.log(`dataTimePeriods... ${JSON.stringify(dataTimePeriods, undefined,1)}`);
+
+  data.forEach(i => {
+            const countryName = Object.getOwnPropertyNames(i)[0];
+
+            console.log(countryName);
+    
+            dataTimePeriods.forEach(dataPeriod => {
+                //console.log(`${JSON.stringify(i[countryName])}`);
+
+                if (! _.find(i[countryName], { key_as_string: dataPeriod} ) ) {
+                  console.log(`Using .Find() Data Period: ${dataPeriod} NOT found for Country: ${countryName}`);
+
+                  i[countryName].push( {
+                        "key_as_string": dataPeriod,
+                        "total_volume": {
+                        "value": 0
+                       }
+                  });
+                }
+               else {
+                    console.log(`Using .Find() Data Period: ${dataPeriod} WAS found for Country: ${countryName}`);
+                }
+            });
+
+            i[countryName] = _.sortBy(i[countryName], ((i) => {
+                return moment.utc(i.key_as_string).unix();
+            }));
+
+            console.log(`${JSON.stringify(i[countryName])}`);
+        });
+
+   console.log(`after sort.... ${JSON.stringify(data, undefined, 1)}`);
+
+const endOfQuarter =  moment().utc().endOf('quarter').toJSON();
+console.log(`endOfQuarter.. ${JSON.stringify(endOfQuarter)}`);
+
+
+const startOf10YrQuarter = moment().utc().startOf('year').add(-10, 'year').startOf('quarter');
+console.log(`startOf10YrQuarter.. ${JSON.stringify(startOf10YrQuarter)}`);
+
+const endOfLastQuarter = moment().utc().subtract(1, 'Q').endOf('quarter').toJSON()
+console.log(`endOfLastQuarter.. ${JSON.stringify(endOfLastQuarter)}`);
+/*
+   //go off by each countrty
+   distinctCountries.forEach(country => {
+        //console.log(`For Country...${country}`);
+        let data = [];
+       
+
+        chartTimePeriods.forEach(monthlyChartPeriod => {
+            //console.log(`For Period... ${period}...`);
+            const datesToGetDataFor = GetPrior12MonthsForAGivenPeriod(monthlyChartPeriod);
+            //console.log(`${country} Needs Dates ... ${JSON.stringify(datesToGetDataFor, undefined, 1)}...`);
+            
+            let summedDataPoints = [];
+            datesToGetDataFor.past12MonthsFromTimePeriod.forEach(monthlyDataPoint => 
+            {
+                const index = allDataPoints.filter(i => i.country === country && i.month === monthlyDataPoint);
+                //console.log(`Index.. ${JSON.stringify(index, undefined, 1)}`);
+                if(index !== undefined && index.length !== 0) {
+                     const v = index[0].monthlyValue;
+                     //console.log(`Country: ${country} Chart Point Period: ${monthlyChartPeriod} Monthly DataPoint ${monthlyDataPoint} Found. ${v} Being Added...`);
+                     summedDataPoints.push(v);
+                }else {
+                    //console.log(`Country: ${country} Chart Point Period: ${monthlyChartPeriod} Monthly DataPoint ${monthlyDataPoint} Not Found ...`);
+                    summedDataPoints.push(0);
+                }
+
+                // let index = _.findIndex(allDataPoints, { country: country, month: monthlyDataPoint } );
+                // if(index === -1) {
+                //     console.log(`Country: ${country} Chart Point Period: ${monthlyChartPeriod} Monthly DataPoint ${monthlyDataPoint} Not Found ...`)
+                //     summedDataPoints.push(0);
+                // }
+                // else {
+                //     const v = allDataPoints[index].monthlyValue;
+                //     console.log(`Country: ${country} Chart Point Period: ${monthlyChartPeriod} Monthly DataPoint ${monthlyDataPoint} Found. ${v} Being Added...`);
+                //     summedDataPoints.push(v);
+                // }
+            });
+            
+            //console.log(`Country: ${country} Chart Point Period: ${monthlyChartPeriod} All Individual Values ${JSON.stringify(summedDataPoints, undefined, 1)} ...`);
+            let totalForChartDataPoint = summedDataPoints.reduce((total, amount) => total + amount);
+            console.log(`Country: ${country} Chart Point Period: ${monthlyChartPeriod} Total ${totalForChartDataPoint} `);
+
+            let d =  {
+                        'key_as_string':  monthlyChartPeriod,
+                        'total_volume': {
+                          'value': totalForChartDataPoint 
+                        }
+                    };
+            data.push(d);
+        });
+
+        if (dictionary[country] === undefined) {
+            dictionary[country] = data;
+        } else {
+            dictionary[country] = dictionary[country].concat(data);
+        }
+   });
+
+  //console.log(`All Monthly Values ${JSON.stringify(dictionary, undefined, 1)} ...`);
+
+  // Object.keys(data).forEach(countryName => {
+  //           timeValues.forEach(month => {
+  //               if (! _.find(data[countryName], {'key_as_string': month})) {
+  //                   data[countryName].push({
+  //                       "key_as_string": month,
+  //                       "total_volume": { "value": 0 }
+  //                   });
+  //               }
+  //           });
+
+
+*/
+
+  </script>
