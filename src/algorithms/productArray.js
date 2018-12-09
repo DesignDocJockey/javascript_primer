@@ -25,9 +25,7 @@ const array = [1, 2, 3, 10];
 let productArray = [];
 for(let i = 0; i< array.length; i++) //Runtime of array traversal is O(N)
 {
-    console.log(`Index: ${i}`);
     let valueAtIndex = getProductExcludingIndex(array, i); //Runtime is O(N)
-    console.log(`Value: ${valueAtIndex}`);
     productArray.push(valueAtIndex);
 } 
 
