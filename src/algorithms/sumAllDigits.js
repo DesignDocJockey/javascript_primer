@@ -1,6 +1,8 @@
 'use strict';
 
 /* 
+Sum all the individual digits of a given number
+
 Given 777 is number
 
 777 % 10 = 7
