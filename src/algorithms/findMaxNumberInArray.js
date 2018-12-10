@@ -8,7 +8,7 @@ const findMaxNumberInArray = (array) => {
    else 
    {
         maxNumber = array[0];
-        for(let nbr of array) 
+        for(let nbr of array) //Runtime is O(N)
         {
             if(nbr > maxNumber) {
                 maxNumber = nbr;
@@ -18,6 +18,7 @@ const findMaxNumberInArray = (array) => {
    return maxNumber
 };
 
+//Total Runtime is O(N)
 
 const array = [12, 25, 11, 20, 18, 24, 31, 23, 55];
 const maxNbr = findMaxNumberInArray(array);

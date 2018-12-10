@@ -22,7 +22,8 @@ const sumAllDigits = (number) =>
     else 
     {
         let sum = 0;
-        while(number !== 0)  {
+        while(number !== 0)  //Total Runtime is O(N)
+        { 
             let digit = (number % 10);
             sum += digit;            
             number = Math.floor( (number / 10) );
@@ -30,6 +31,9 @@ const sumAllDigits = (number) =>
         return sum;
     }
 };
+
+//Total Runtime is O(N)
+
 const result = sumAllDigits(555);
 console.log(result);
 

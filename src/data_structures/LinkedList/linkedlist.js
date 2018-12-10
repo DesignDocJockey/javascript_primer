@@ -10,6 +10,7 @@ const childNodes =
                         new Node(12, 
                             new Node(15, null)))));
 
+/**** Append nodes to an existing Linked List  ***/                      
 headNode.setNextNode(childNodes);
 
 let node = headNode;
