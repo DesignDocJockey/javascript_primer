@@ -2,6 +2,33 @@
 
 const Node = require('./node');
 
+module.exports = class LinkedList 
+{
+    constructor(headNode) {
+        this.headNode = headNode;
+        this.tailNode = null;
+    }
+
+    insertAtEnd(value) 
+    {
+        if(!this.headNode.getNextNode())
+        {
+            this.tailNode = new Node(value);
+            this.headNode.setNextNode(this.tailNode);
+        }
+        else {
+            let start = this.headNode;
+            while(start) {
+                start = start.getNextNode();
+            }
+            start = new Node(value);
+            this.tailNode = start;
+        }
+    }
+}
+ 
+
+
 const headNode = new Node(18, null);
 const childNodes = 
             new Node(12, 
