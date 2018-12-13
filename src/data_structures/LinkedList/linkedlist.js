@@ -73,20 +73,42 @@ while (list1Iterator !== null && list2Iterator !== null)
         list2Iterator = list2Iterator.getNextNode();
     }
     else if (list1Iterator.getValue() === list2Iterator.getValue()) {
-        result.push(listIterator1.getValue());
+        result.push(list1Iterator1.getValue());
         list1Iterator = list1Iterator.getNextNode();
         list2Iterator = list2Iterator.getNextNode();
     }
 
-    console.log(`list1Iterator... ${JSON.stringify(list1Iterator, undefined, 1)}`);
-    console.log(`list2Iterator... ${JSON.stringify(list2Iterator, undefined, 1)}`);;
+   
+    //console.log(`list2Iterator... ${JSON.stringify(list2Iterator, undefined, 1)}`);;
+}
+
+if(!list1Iterator) {
+    console.log(`list1Iterator is null...we need to copy the remaining contents of list2Iterator into the array...`);
+    let node = list2Iterator;
+    console.log(`list1Iterator.. ${JSON.stringify(node)}`);
+    while(node) {
+        result.push(node.getValue());
+        node = list2Iterator.getNextNode();
+    }
+}
+
+if(!list2Iterator) {
+    console.log(`list2Iterator is null...we need to copy the remaining contents of list1Iterator into the array...`);
+    let node = list1Iterator;
+    console.log(`list1Iterator.. ${JSON.stringify(node)}`);
+    while(node) {
+        result.push(node.getValue());
+        node = list1Iterator.getNextNode();
+    }
 }
 
 console.log(result);
-let newList = new Node(result[0]);
-for(let i = 1; i < result.length; i++) 
-{
-    let tempNode = new Node(result[i]);
-    newList.setNextNode(tempNode);
-}
-console.log(newList);
+
+//TODO::implement a append to end method on the linked list
+// let newList = new Node(result[0]);
+// for(let i = 1; i < result.length; i++) 
+// {
+//     let tempNode = new Node(result[i]);
+//     newList.setNextNode(tempNode);
+// }
+// console.log(newList);
