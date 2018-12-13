@@ -36,23 +36,21 @@ const results = removeDuplicatesFromSortedArray(array);
 console.log(results);
 
 
-const removeDuplicates = (array) => {
+const removeDuplicatesFromSortedArray2 = (array) => {
     const length = array.length; 
     if(length == 0 || length == 1) return length;
     
     let i = 1; 
-    for(let j = 1; j < length; j++) 
-    {
-      if(array[j] != array[j-1])
-      {
-        array[i] = array[j]; 
-        i++; 
-      }
+    for(let j = 1; j < length; j++)  {
+        if(array[j] !== array[j-1]) {
+            array[i] = array[j]; 
+            i++; 
+        }
     }
     if(i<length) array[i]='\0';
     // return i; 
   }
 
   let array2 = [0,0,1,1,1,2,2,3,3,4];
-  removeDuplicates(array2);
+  removeDuplicatesFromSortedArray2(array2);
   console.log(array2);

@@ -10,14 +10,20 @@ const swap = (array, i, j) => {
     array[j] = temp; 
 };
 
-//https://www.techiedelight.com/generate-permutations-string-java-recursive-iterative/
 
-const permutation = (string, index) => 
+const permutation = (characterArray, index) => 
 {
+    //base case
+    if(index == 1) 
+        console.log(characterArray);
 
-    if(string.length == index) 
-        console.log(string);
-    for(let i = index; i < string.length; i++) {
-        swap(string, )
+    for(let i = 0; i < index; i++) 
+    {
+        swap(characterArray, i, index - 1);
+        permutation(characterArray, index - 1);
+        swap(characterArray, i, index - 1);
     }
 };
+
+let characterArray = string.split('');
+permutation(characterArray, characterArray.length);
