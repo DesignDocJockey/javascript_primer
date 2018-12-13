@@ -37,14 +37,13 @@ const reverseNumber = (number) =>
     //  push into array
     //  Math.abs(11 / 10) => 
      
-     let tempNbr = number; 
-     while(tempNbr > 0)  //Runtime is O(N) depending on the value of the digit
+     while(number > 0)  //Runtime is O(N) depending on the value of the digit
      {
-        console.log(`tempNbr: ${tempNbr}`);
-        let nbr = (tempNbr % 10);
+        console.log(`tempNbr: ${number}`);
+        let nbr = (number % 10);
         console.log(`nbr: ${nbr}`);
         digits.push(nbr);
-        tempNbr = Math.floor(tempNbr / 10);
+        number = Math.floor(number / 10);
      }
 
      let reversedNumber = (isNegative)  ? (parseInt(digits.join('')) * -1 ) : parseInt(digits.join(''));
