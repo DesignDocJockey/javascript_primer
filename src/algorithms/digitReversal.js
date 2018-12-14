@@ -23,14 +23,14 @@ const reverseNumber = (number) =>
     let digits = [];
     let isNegative = false;
      //if its negative make it a positive
-     if (number < -1) {
+     if (number < 0) {
         number *= -1;
         isNegative = true;
      }
      
      //if its just a single digit
      if(number < 10) {
-        return (isNegative)? number *= -1 :number;
+        return (isNegative) ? number *= -1 : number;
      }
 
     //  11 % 10 => 1

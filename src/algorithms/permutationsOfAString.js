@@ -45,8 +45,8 @@ const getAllPermutations = (string) => {
     var results = [];
   
     if (string.length === 1) {
-      results.push(string);
-      return results;
+        results.push(string);
+        return results;
     }
   
     for (var i = 0; i < string.length; i++) 
