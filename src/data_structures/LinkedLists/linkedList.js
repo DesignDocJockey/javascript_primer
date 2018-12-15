@@ -46,6 +46,15 @@ class LinkedList
     clearList() {
         this.head = null;
     }
+
+    removeHead() 
+    {
+        if(!this.head) {
+            return;
+        }
+
+        this.head = this.head.getNextNode();
+    }
 };
 
 const nodes = new Node(7, 
@@ -60,4 +69,4 @@ linkLst.insertFirst(25);
 console.log(JSON.stringify(linkLst, undefined, 1));
 console.log(linkLst.size());
 console.log(linkLst.getFirst().getValue());
-console.log(linkLst.getLast());
+console.log(linkLst.getLast().getValue());
