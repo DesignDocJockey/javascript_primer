@@ -35,7 +35,7 @@ const reverseNumber = (number) =>
 
     //  11 % 10 => 1
     //  push into array
-    //  Math.abs(11 / 10) => 
+    //  Math.floor(11 / 10) => 
      
      while(number > 0)  //Runtime is O(N) depending on the value of the digit
      {

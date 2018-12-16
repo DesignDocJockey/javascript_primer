@@ -46,7 +46,7 @@ const Node = require('./node');
 
 //console.log(JSON.stringify(headNode, undefined, 1));
 
-
+///Merge 2 sorted linked lists
 const list1 = new Node(7, 
                 new Node(12,
                     new Node (18, null)));

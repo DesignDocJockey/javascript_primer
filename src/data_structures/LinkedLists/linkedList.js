@@ -64,7 +64,8 @@ class LinkedList
         //set up a current node to keep track of the current node as we iterate through the list
         let currentNode = this.head.getNextNode();
         
-        while(currentNode.getNextNode()) {
+        while(currentNode.getNextNode()) 
+        {
             prev = currentNode;                         //keep track of the last node we iterated over
             currentNode = currentNode.getNextNode();    //move to the next node
         }
@@ -74,13 +75,14 @@ class LinkedList
     }
 
     //iterate through the list to the end and at the end of the list, set a new node
-    insertAtEnd(value) {
-        
+    insertAtEnd(value) 
+    {    
         if(!this.head) 
             this.head = new Node(value, null);
         //start at the beginning of the list
         let lastElement = this.head; 
-        while(lastElement) {
+        while(lastElement) 
+        {
             //condition to see that we are at the last node
             if(lastElement.getNextNode() === null) {
                 lastElement.setNextNode(new Node(value, null));
@@ -91,7 +93,8 @@ class LinkedList
     }
 
     //retrieve an element at a specific index
-    getAtIndex(index) {
+    getAtIndex(index) 
+    {
         //no items in the list
         if(!this.head) return -1;
 
@@ -109,7 +112,8 @@ class LinkedList
         return -1;
     }
 
-    removeAtIndex(index) {
+    removeAtIndex(index) 
+    {
         //no items in the list
         if(!this.head) return;
 
@@ -132,8 +136,8 @@ class LinkedList
         previousNode.setNextNode(newNextNode);
     }
 
-    insertAtIndex(value, index) {
-        
+    insertAtIndex(value, index) 
+    {    
         //edge case::: for empty list or when the index is 0
         if(!this.head) {
             this.head = new Node(value, null);
@@ -163,10 +167,7 @@ const nodes = new Node(7,
 
 let linkLst = new LinkedList();
 linkLst.insertFirst(12);
-linkLst.insertFirst(18);
-linkLst.insertFirst(21);
-linkLst.insertFirst(25);
-linkLst.insertFirst(5);
+linkLst.insertFirst(18); 
 linkLst.insertFirst(2);
 
 
@@ -180,5 +181,3 @@ linkLst.removeLast();
 linkLst.insertAtEnd(77);
 console.log(`Value at Index 0.... ${linkLst.getAtIndex(0).getValue()}`);
 console.log(JSON.stringify(linkLst, undefined, 1));
-
-

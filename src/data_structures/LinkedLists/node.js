@@ -4,7 +4,9 @@
 //Because arrow functions allow you to retain the scope of the caller inside the function, you don’t need to create self = this closures or use bind.
 //Arrow functions don’t have a prototype property or other internal method hence it is better to use function in the global scope 
 //when defining methods for classes and or using the Object.prototype properties
-// You can't use an arrow function when a dynamic context is required: defining methods, create objects with constructors, get the target from this when handling events.
+//You can't use an arrow function when a dynamic context is required: defining methods, create objects with constructors, get the target from this when handling events.
+//Arrow functions cannot be used as constructors and also does not supports this, arguments, super, or new.target keywords. It is best suited for non-method functions.
+
 
 module.exports = class Node 
 {
