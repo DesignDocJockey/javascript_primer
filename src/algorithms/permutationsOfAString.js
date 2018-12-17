@@ -60,6 +60,7 @@ const getAllPermutations = (string) => {
     }
     return results;
   }
+  //Big O is O(N ^2 N!)  
 
   const result = getAllPermutations(string);
   console.log(result);

@@ -60,17 +60,26 @@ let result = [];
 let list1Iterator = list1;
 let list2Iterator = list2;
 
+//if we're using a linked list
+let newList = new Node(null);
+
 while (list1Iterator !== null && list2Iterator !== null) 
 {
     if( (list1Iterator.getValue() < list2Iterator.getValue()) ) 
     {
-        result.push(list1Iterator.getValue());
+        result.push(list1Iterator.getValue()); 
         list1Iterator = list1Iterator.getNextNode();
+
+        //OR newList.setNextValue(list1Iterator.getValue());
+        //newList = newList.getNextValue();
     } 
     else if( (list1Iterator.getValue() > list2Iterator.getValue()) )
     {
         result.push(list2Iterator.getValue());
         list2Iterator = list2Iterator.getNextNode();
+
+        //OR newList.setNextValue(list2Iterator.getValue());
+        //newList = newList.getNextValue();
     }
     else if (list1Iterator.getValue() === list2Iterator.getValue()) {
         result.push(list1Iterator.getValue());
@@ -101,6 +110,8 @@ if(!list2Iterator) {
         node = list1Iterator.getNextNode();
     }
 }
+
+//return newList.getNextNode();
 
 console.log(result);
 

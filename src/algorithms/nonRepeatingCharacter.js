@@ -1,7 +1,7 @@
 'use strict';
 
 /*
-First non-repeating character using one traversal of string. Set 2. Given a string, find the first non-repeating character in it. 
+Find the First non-repeating character using one traversal of string. Set 2. Given a string, find the first non-repeating character in it. 
 For example, if the input string is “GeeksforGeeks”, then output should be 'f' and if input string is “GeeksQuiz”, then output should be 'G'.
 
 non_repeating("abcab") # should return 'c'

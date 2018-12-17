@@ -64,8 +64,7 @@ class LinkedList
         //set up a current node to keep track of the current node as we iterate through the list
         let currentNode = this.head.getNextNode();
         
-        while(currentNode.getNextNode()) 
-        {
+        while(currentNode.getNextNode()) {
             prev = currentNode;                         //keep track of the last node we iterated over
             currentNode = currentNode.getNextNode();    //move to the next node
         }
@@ -159,6 +158,51 @@ class LinkedList
         let newNode = new Node(value, previousNode.getNextNode());
         previousNode.setNextNode(newNode);
     }
+
+    getMidPointOfLinkedList(list) {
+        let slow = this.head;
+        let fast = this.head;
+
+        while(fast.getNextNode() && fast.getNextNode().getNextNode()) {
+            slow = slow.getNextNode() //get the next value;
+            fast = fast.getNextNode().getNextNode() //jump 2 nodes ahead
+        }
+
+        return slow;
+    }
+
+    isCircularLinkedList()  {
+        let slow = this.head;
+        let fast = this.head;
+    
+        while(fast.getNextNode()  && fast.getNextNode().getNextNode()) {
+
+            slow = slow.getNextNode();
+            fast = fast.getNextNode().getNextNode();
+
+            if(slow === fast)
+                return true;
+        }
+        return false;
+    }
+
+     getNthElementFromLast(list, n) {
+        let slow = list.getFirst();
+        let fast = list.getFirst();
+      
+        while (n > 0) {
+          fast = fast.next;
+          n--;
+        }
+      
+        while (fast.next) {
+          slow = slow.next;
+          fast = fast.next;
+        }
+      
+        return slow;
+      }
+
 };
 
 const nodes = new Node(7, 
