@@ -20,10 +20,10 @@ const word = 'Step on no pets';
 const reverseCharactersInWord = (string) => {
         let charArray = string.split('');
         for(let i = 0; i < charArray.length / 2; i++) {
-                let idxToSwap = (charArray.length - i) - 1;
-                let temp = charArray[i];
-                charArray[i] = charArray[idxToSwap];
-                charArray[idxToSwap] = temp;
+            let idxToSwap = (charArray.length - i) - 1;
+            let temp = charArray[i];
+            charArray[i] = charArray[idxToSwap];
+            charArray[idxToSwap] = temp;
         }
         return charArray.join('');
 };

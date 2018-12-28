@@ -44,6 +44,23 @@ class TreeNode {
         return null;
     }
 
+    findElement(root, value) {
+        if(!root) return;
+
+        while(root) 
+        {
+            if(root.value === value) 
+               break;
+
+            if(root.value < value) 
+                root = root.left;
+
+            if(root.value > value)
+                root = root.right;
+        }
+        return root;
+    }
+
     preOrderTraversal(node) {
         if(node){
             console.log(node.value);
@@ -72,8 +89,8 @@ class TreeNode {
         let queue = [];
         queue.push(this);
 
-        while(queue.length !== 0) {
-            
+        while(queue.length !== 0) 
+        {    
             let e = queue.shift();
             if(e.left)
                 queue.push(e.left);
@@ -124,7 +141,6 @@ class TreeNode {
         return node.value
     }
 
-    
     findMaxNode(node) {
         if(!node) return 0;
     
@@ -134,13 +150,13 @@ class TreeNode {
         return node.value;
     }
 
-    commonAncestor(node, n1, n2){
+    commonAncestor(node, n1, n2) {
         if(!node) return;
         var val = node.value;
-        if(n1 < val && n2 <val){
+        if(n1 < val && n2 < val){
           return commonAncestor(node.left, n1, n2);
         }
-        if(n1<val && n2<val){
+        if(n1 > val && n2 > val){
           return commonAncestor(node.right, n1, n2);
        }
        console.log('lowest common ancestor value: ', val);
