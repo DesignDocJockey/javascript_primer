@@ -4,14 +4,16 @@ const printNode = (node) => {
     console.log(JSON.stringify(node));
 }
 
-class Node {
+class Node 
+{
     constructor(value) {
         this.value = value;
         this.children = [];
     }
 
     add(value) {
-        this.children.push(new Node(value));
+        let newNode = new Node(value);
+        this.children.push(newNode);
     }
 
     remove(value) {

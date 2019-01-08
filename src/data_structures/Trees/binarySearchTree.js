@@ -13,20 +13,22 @@ class TreeNode {
         this.right = null;
     }
 
-    insert(value) {
-        //if the value is less than the current node AND the left node is PRESENT, recursively go the left
-        if (value < this.value && this.left) {
-            this.left.insert(value);
-        }  //if the value is less than the current node AND the left node is NOT PRESENT
-        else if( value < this.value) {
-            this.left = new Node(value);
-        }  //if the value is greater than the current node AND the right node is PRESENT, recursively go the right
-        else if (value > this.value && this.right) {
-            this.right.insert(value);
-        }  //if the value is greater than the current node AND the right node is NOT PRESENT,  
-        else if (value > this.value) {
-            this.right = new Node(value);
-        } 
+    insert(value) 
+    {  
+        if (value <= this.value) {
+            //if the value is less than the current node AND the left node is NOT PRESENT
+            if( !this.left)
+                this.left = new TreeNode(value);
+            else  //if the left node is PRESENT, recursively traverse go the left
+                this.left.insert(value);
+        }  
+        else if (value >= this.value) {
+            //if the value is greater than the current node AND the right node is NOT PRESENT,  
+            if( !this.right) 
+                this.right = new TreeNode(value);
+            else //if the left node is PRESENT, recursively traverse go the right
+                this.right.insert(value);
+        }
     }
 
     contains(value) 
@@ -34,13 +36,22 @@ class TreeNode {
         //base case to see if the node is present
         if(this.value === value) return this;
 
-        //if the value is greater than the current node AND the right node is PRESENT, recursively go the right
-        if(value > this.value && this.right) {
-            this.right.contains(value);
-        } //if the value is greater than the current node AND the left node is PRESENT,  recursively go the left
-        else if(value < this.value && this.left) {
-            this.left.contains(value);
+        //if the value is less than the current node AND the left node is PRESENT,  recursively go the left
+        if (value < this.value)
+        {
+            if (this.left)
+                this.left.contains(value);
+            else
+                return null;
         }
+        //if the value is greater than the current node AND the right node is PRESENT, recursively go the right
+        else if ( value > this.value) {
+            if (this.right)
+                this.right.contains(value);
+            else
+                return null;
+        } 
+      
         return null;
     }
 
@@ -64,24 +75,24 @@ class TreeNode {
     preOrderTraversal(node) {
         if(node){
             console.log(node.value);
-            preOrderTraversal(node.left);
-            preOrderTraversal(node.right);
+            this.preOrderTraversal(node.left);
+            this.preOrderTraversal(node.right);
          }
     }
 
     postOrderTraversal(node) {
         if(node){
-            postOrderTraversal(node.left);
-            postOrderTraversal(node.right);
+            this.postOrderTraversal(node.left);
+            this.postOrderTraversal(node.right);
             console.log(node.value);
          }
     }
 
     inOrderTraversal(node) {
         if(node){
-            inOrderTraversal(node.left);
+            this.inOrderTraversal(node.left);
             console.log(node.value);
-            inOrderTraversal(node.right);
+            this.inOrderTraversal(node.right);
          }
     }
 
@@ -107,8 +118,8 @@ class TreeNode {
         if(node)
         {
           console.log(node.value);
-          depthFirstTraversal(node.left);
-          depthFirstTraversal(node.right);
+          this.depthFirstTraversal(node.left);
+          this.depthFirstTraversal(node.right);
         }
     }
 
@@ -125,10 +136,10 @@ class TreeNode {
           return false;
         }
 
-        if (!left && !isValidBinarySearchTree(node.left, min, node.data))
+        if (!this.left && !this.isValidBinarySearchTree(node.left, min, node.data))
             return false;
 
-        if(!right && !isValidBinarySearchTree(node.right, node.data, max))
+        if(!this.right && !this.isValidBinarySearchTree(node.right, node.data, max))
             return false;
     }
 
@@ -136,7 +147,7 @@ class TreeNode {
         if(!node) return 0;
         
         if(node.left) {    
-          return findMinNode(node.left)
+          return this.findMinNode(node.left)
         }
         return node.value
     }
@@ -145,7 +156,7 @@ class TreeNode {
         if(!node) return 0;
     
         if(node.right) {  //For a binary search tree, we need to iterate through the right-hand side to find the largest value
-            return findMaxNode(node.right)
+            return this.findMaxNode(node.right)
         }
         return node.value;
     }
@@ -154,17 +165,17 @@ class TreeNode {
         if(!node) return;
         var val = node.value;
         if(n1 < val && n2 < val){
-          return commonAncestor(node.left, n1, n2);
+          return this.commonAncestor(node.left, n1, n2);
         }
         if(n1 > val && n2 > val){
-          return commonAncestor(node.right, n1, n2);
+          return this.commonAncestor(node.right, n1, n2);
        }
        console.log('lowest common ancestor value: ', val);
        return node;
      }
 }
 
-const node = new Node(10);
+const node = new TreeNode(10);
 node.insert(5);
 node.insert(15);
 node.insert(20);
