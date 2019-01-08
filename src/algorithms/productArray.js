@@ -14,7 +14,7 @@ productExceptSelf(thirdArray); // [12, 12, 8, -12]
 const getProductExcludingIndex = (array, indexToExclude) => {
     let result = 1;
     for(let i = 0; i < array.length; i++) {
-        if(i == indexToExclude)
+        if(i === indexToExclude)
             continue;
         result *= array[i]; 
     }
@@ -23,7 +23,7 @@ const getProductExcludingIndex = (array, indexToExclude) => {
 
 const array = [1, 2, 3, 10];
 let productArray = [];
-for(let i = 0; i< array.length; i++) //Runtime of array traversal is O(N)
+for(let i = 0; i < array.length; i++) //Runtime of array traversal is O(N)
 {
     let valueAtIndex = getProductExcludingIndex(array, i); //Runtime is O(N)
     productArray.push(valueAtIndex);
