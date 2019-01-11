@@ -172,7 +172,33 @@ class TreeNode {
        }
        console.log('lowest common ancestor value: ', val);
        return node;
-     }
+    }
+
+    isSymmetric(root) {
+        if (root == null) {
+            return true;
+        } 
+        return this.isMirror(root.left, root.right);
+    }
+
+    isMirror(leftNode, rightNode) {
+        //if the left child node and the right child node are BOTH null then its symetrical
+        if( !leftNode && !rightNode) 
+            return true;
+
+        //if the left node is null but the right node is not null and vice versa
+        if ( !leftNode || !rightNode)
+            return false;   
+        
+        //if the value between the left node and the right node is not the same
+        if (leftNode.value != rightNode.value)
+            return false;
+        
+        //compare the value of the nodes 
+        return leftNode.value == rightNode.value && 
+                this.isMirror(leftNode.left, rightNode.right) && //compare the left node's left child node w/ the right node's right child node
+                this.isMirror(leftNode.right, rightNode.left);  //compare the left node's right child side w/ the right node's left child node 
+    }
 }
 
 const node = new TreeNode(10);
